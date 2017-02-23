@@ -1,0 +1,6 @@
+c:\users\mark\documents\visual studio 2015\Projects\Lemonade\Lemonade\bin\Debug\Lemonade.exe.config
+c:\users\mark\documents\visual studio 2015\Projects\Lemonade\Lemonade\bin\Debug\Lemonade.exe
+c:\users\mark\documents\visual studio 2015\Projects\Lemonade\Lemonade\bin\Debug\Lemonade.pdb
+c:\users\mark\documents\visual studio 2015\Projects\Lemonade\Lemonade\obj\Debug\Lemonade.csprojResolveAssemblyReference.cache
+c:\users\mark\documents\visual studio 2015\Projects\Lemonade\Lemonade\obj\Debug\Lemonade.exe
+c:\users\mark\documents\visual studio 2015\Projects\Lemonade\Lemonade\obj\Debug\Lemonade.pdb
