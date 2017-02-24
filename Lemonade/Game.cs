@@ -11,7 +11,6 @@ namespace Lemonade
         Store store;
         Player player;
         Weather weather;
-        Inventory inventory;
         public Money Wallet = new Money();
         public string MenuOptions;
 
@@ -25,7 +24,6 @@ namespace Lemonade
             player = new Player();
             store = new Store();
             weather = new Weather();
-            inventory = new Inventory();
         }
 
 
@@ -35,31 +33,40 @@ namespace Lemonade
 
         public void Intro()
         {
-            Console.WriteLine("Welcome to Lemonade Stand. In this game you will have 7 days to make that money, as much as you possibly can.\n Success requires smart pricing, supply and demand, and some good luck on the weather forecast. Watch out for the occasional asshole customer \n");
+            Console.WriteLine("Welcome to Lemonade Stand. In this game you will have 7 days to make that money, as much as you possibly can.\n Success requires smart pricing, supply and demand, and some good luck on the weather forecast. \n");
             player.GetName();
+
             MainMenu();
+
         }
 
         public void MainMenu()
         {
-            Console.WriteLine($"{player.PlayerName}, this is the main menu.\n  Type 'inventory' to check your supplies.\n Type 'store' to purchase supplies.\n Tomorrow's forecast is: {weather.Condition} {weather.Temperature} degrees Fahrenheit");
+            Console.WriteLine($"Main Menu: \nType 'inventory' to check your supplies. \nType 'store' to purchase supplies. \nType 'recipe' to prepare a lemonade mix for tomorrow's customers. \nTomorrow's forecast is: {weather.Condition} {weather.Temperature} degrees Fahrenheit. \nYour wallet contains ${player.Wallet}");
             MenuOptions = Console.ReadLine().ToLower();
             switch (MenuOptions)
             {
 
                 case "store":
                     store.PurchaseIngredients(player);
-                    break;
-                case "inventory":
-                    inventory.DisplayInventory();
                     MainMenu();
                     break;
+                case "inventory":
+                    player.Inventory.DisplayInventory();
+                    MainMenu();
+                    break;
+                case "recipe":
+                    player.Inventory.LemonRecipe();
+                    MainMenu();
+                    break;
+
                 default:
-                    Console.WriteLine("Invalid selection");
+                    Console.WriteLine("Invalid selection\n");
                     MainMenu();
                     break;
             }
             //Build out functionality to check inventory, go to the store, check weather, display the day. The whole game is accessible from here.
+            //Console clear to 
         }
     }
 }

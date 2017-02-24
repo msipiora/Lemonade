@@ -8,13 +8,14 @@ namespace Lemonade
 {
     class Player
     {
-        Inventory Inventory;
-        public double Wallet = 20.00;
+        public Inventory Inventory;
+        public Pitcher Pitcher;
+        public double Wallet = 50.00;
         public string PlayerName;
 
         public Player()
         {
-
+            Inventory = new Inventory();
         }
 
         public string GetName()
