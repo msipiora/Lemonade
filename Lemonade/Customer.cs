@@ -10,19 +10,21 @@ namespace Lemonade
     {
 
         //member variables
-        Day day;
         public int MinimumTemperature;
         public string PreferredCondition;
         public int PreferredIce;
         public int PreferredLemons;
         public int PreferredSugar;
         public double MaxPrice;
+        public int CupsSold = 0;
+        Random random = new Random();
+        List<string> Conditions = new List<string>() { "Sunny", "Sunny", "Sunny", "Cloudy", "Rainy", "Windy" };
 
         //constructor initialize the class, pass in attributes
-        public Customer(int MinimumTemperature, string PreferredCondition, int PreferredIce, int PreferredLemons, int PreferredSugar, double MaxPrice)
+        public Customer(int MinimumTemperature, int PreferredCondition, int PreferredIce, int PreferredLemons, int PreferredSugar, double MaxPrice)
         {
             this.MinimumTemperature = MinimumTemperature;
-            this.PreferredCondition = PreferredCondition;
+            this.PreferredCondition = Conditions[PreferredCondition];
             this.PreferredIce = PreferredIce;
             this.PreferredLemons = PreferredLemons;
             this.PreferredSugar = PreferredSugar;
@@ -32,7 +34,6 @@ namespace Lemonade
 
         public void BuyLemonade(Player player)
         {
-            player.Wallet = player.Wallet + day.SetPrice;
         }
     }
 }

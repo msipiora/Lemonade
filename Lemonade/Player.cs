@@ -9,7 +9,6 @@ namespace Lemonade
     class Player
     {
         public Inventory Inventory;
-        public Pitcher Pitcher;
         public double Wallet = 50.00;
         public string PlayerName;
 

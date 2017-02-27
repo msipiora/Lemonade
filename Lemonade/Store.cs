@@ -81,7 +81,7 @@ namespace Lemonade
                         Console.WriteLine($"\nCups cost {CupsPrice}, how many would you like? You currently have {player.Inventory.CupList.Count} cups and your wallet currently has ${player.Wallet}\n");
                         PurchasedCups = double.Parse(Console.ReadLine());
                         CupSale = (PurchasedCups * CupsPrice);
-                        if (player.Wallet < SugarSale)
+                        if (player.Wallet < CupSale)
                         {
                             Console.WriteLine("Not enough cash bozo\n");
                             PurchaseIngredients(player);

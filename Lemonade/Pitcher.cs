@@ -8,15 +8,14 @@ namespace Lemonade
 {
     class Pitcher
     {
-        Player player;
-        
+        public int GlassCounter;
         public Pitcher()
         {
 
         }
 
 
-        public bool CheckIngredients()
+        public bool CheckIngredients(Player player)
         {            
             {
                 if (player.Inventory.LemonList.Count > player.Inventory.LemonsUsed && player.Inventory.SugarList.Count > player.Inventory.SugarUsed)
@@ -26,13 +25,14 @@ namespace Lemonade
 
                 else
                 {
+                    Console.WriteLine("You ran out of ingredients and have to close down for the day.");
                     return false;
                 }
             }
          
         }
 
-        public void FillPitcher()
+        public void FillPitcher(Player player)
         {
             for (int i = 0; i < player.Inventory.LemonsUsed; i++)
             {
@@ -48,16 +48,17 @@ namespace Lemonade
             }
         }
 
-        public void PourGlass()
-        {
-            if (player.Inventory.CupList.Count == 0)
-            {
-                Console.WriteLine("You ran out of cups. You will have to close down your lemonade stand for the rest of the day");
-            }
-            for(int i = 0; i < 5; i++)
+        public void PourGlass(Player player)
+        {            
             {
                 player.Inventory.CupList.RemoveAt(0);
+                GlassCounter = GlassCounter + 1;
+                if (GlassCounter% 5 == 0)
+                {
+                    FillPitcher(player);
+                }
             }
+
         }
     }
 }

@@ -11,25 +11,21 @@ namespace Lemonade
         Store store;
         Player player;
         Weather weather;
+        Day NewDay;
         public Money Wallet = new Money();
         public string MenuOptions;
+        public int DayCounter = 1;
 
-        //member variables
-
-
-        //constructor
 
         public Game()
         {
             player = new Player();
             store = new Store();
             weather = new Weather();
+            NewDay = new Day(weather);
         }
-
-
-
-
-        //methods
+        
+      
 
         public void Intro()
         {
@@ -42,7 +38,7 @@ namespace Lemonade
 
         public void MainMenu()
         {
-            Console.WriteLine($"Main Menu: \nType 'inventory' to check your supplies. \nType 'store' to purchase supplies. \nType 'recipe' to prepare a lemonade mix for tomorrow's customers. \nTomorrow's forecast is: {weather.Condition} {weather.Temperature} degrees Fahrenheit. \nYour wallet contains ${player.Wallet}");
+            Console.WriteLine($"Welcome to Day {DayCounter}. Main Menu: \nType 'inventory' to check your supplies. \nType 'store' to purchase supplies. \nType Once you have your supplies, type 'start' to prepare a lemonade mix and start selling. \nTomorrow's forecast is: {weather.Condition} {weather.Temperature} degrees Fahrenheit. \nYour wallet contains ${player.Wallet}");
             MenuOptions = Console.ReadLine().ToLower();
             switch (MenuOptions)
             {
@@ -55,18 +51,28 @@ namespace Lemonade
                     player.Inventory.DisplayInventory();
                     MainMenu();
                     break;
-                case "recipe":
+                case "start":
                     player.Inventory.LemonRecipe();
+                    NewDay.SelectPrice();
+                    NewDay.ForecastAccuracy();
+                    NewDay.LoopCustomers(player);
+                    NewDay.DayResults(player);
+                    DayCounter = DayCounter + 1;
+                    if (DayCounter == 8)
+                    {
+                        Console.WriteLine($"\nGame over {player.PlayerName}. Your wallet started at $50 and ended at  ${player.Wallet}.\n");
+                        Console.ReadLine();
+                    }
+                    NewDay = new Day(weather);
+                    weather = new Weather();
                     MainMenu();
                     break;
-
                 default:
                     Console.WriteLine("Invalid selection\n");
                     MainMenu();
                     break;
             }
-            //Build out functionality to check inventory, go to the store, check weather, display the day. The whole game is accessible from here.
-            //Console clear to 
+
         }
     }
 }

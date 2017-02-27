@@ -24,6 +24,7 @@ namespace Lemonade
             CupList = new List<Cup>();
             LemonList = new List<Lemon>();
             IceList = new List<Ice>();
+            Pitcher = new Pitcher();
         }
         public void DisplayInventory()
         {
