@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Lemonade
 {
-    class Player
+    public class Player
     {
         public Inventory Inventory;
         public double Wallet = 50.00;
         public string PlayerName;
+        public double WeekEarnings;
 
         public Player()
         {

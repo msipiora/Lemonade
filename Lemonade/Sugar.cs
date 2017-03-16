@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Lemonade
 {
 
-    class Sugar : Ingredient
+    public class Sugar : Ingredient
     {
        public Sugar()
         {

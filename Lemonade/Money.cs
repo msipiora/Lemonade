@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace Lemonade
 {
-    class Money
+    public class Money
     {
-        //public double DayEndSales;
-        //public double NetProfitLoss;
 
-
+        public double DayEndSales;
+        
             public Money()
         {
 
         }
+
+
     }
 }

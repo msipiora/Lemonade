@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lemonade
 {
-    class Pitcher
+    public class Pitcher
     {
         public int GlassCounter;
         public Pitcher()
@@ -18,7 +18,7 @@ namespace Lemonade
         public bool CheckIngredients(Player player)
         {            
             {
-                if (player.Inventory.LemonList.Count > player.Inventory.LemonsUsed && player.Inventory.SugarList.Count > player.Inventory.SugarUsed)
+                if (player.Inventory.LemonList.Count >= player.Inventory.LemonsUsed && player.Inventory.SugarList.Count >= player.Inventory.SugarUsed)
                 {
                     return true;
                 }
@@ -32,6 +32,18 @@ namespace Lemonade
          
         }
 
+        public bool CheckCups(Player player)
+        {
+            if (player.Inventory.CupList.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void FillPitcher(Player player)
         {
             for (int i = 0; i < player.Inventory.LemonsUsed; i++)
@@ -42,9 +54,16 @@ namespace Lemonade
             {
                 player.Inventory.SugarList.RemoveAt(0);
             }
-            for (int i = 0; i < player.Inventory.IceUsed; i++)
+            try
             {
-                player.Inventory.IceList.RemoveAt(0);
+                for (int i = 0; i < player.Inventory.IceUsed; i++)
+                {
+                    player.Inventory.IceList.RemoveAt(0);
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("You're out of ice but you can continue selling");
             }
         }
 

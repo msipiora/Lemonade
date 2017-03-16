@@ -1,0 +1,9 @@
+C:\Users\Mark\Documents\Visual Studio 2015\Projects\Lemonade\LemonadeTest\bin\Debug\LemonadeTest.dll
+C:\Users\Mark\Documents\Visual Studio 2015\Projects\Lemonade\LemonadeTest\bin\Debug\LemonadeTest.pdb
+C:\Users\Mark\Documents\Visual Studio 2015\Projects\Lemonade\LemonadeTest\bin\Debug\Lemonade.exe
+C:\Users\Mark\Documents\Visual Studio 2015\Projects\Lemonade\LemonadeTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\Mark\Documents\Visual Studio 2015\Projects\Lemonade\LemonadeTest\bin\Debug\Lemonade.pdb
+C:\Users\Mark\Documents\Visual Studio 2015\Projects\Lemonade\LemonadeTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\Mark\Documents\Visual Studio 2015\Projects\Lemonade\LemonadeTest\obj\Debug\LemonadeTest.csprojResolveAssemblyReference.cache
+C:\Users\Mark\Documents\Visual Studio 2015\Projects\Lemonade\LemonadeTest\obj\Debug\LemonadeTest.dll
+C:\Users\Mark\Documents\Visual Studio 2015\Projects\Lemonade\LemonadeTest\obj\Debug\LemonadeTest.pdb

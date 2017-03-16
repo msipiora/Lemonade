@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Lemonade
 {
-    class Weather
+    public class Weather
     {
         public string Condition;
         public int Temperature;
         Random random = new Random();
         List<string> conditions;
 
+        
 
-
-        //constructor
+        
     public Weather ()
         {
             conditions = new List<string>() { "Sunny", "Sunny", "Sunny", "Cloudy", "Rainy", "Windy" };

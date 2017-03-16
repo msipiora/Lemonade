@@ -13,15 +13,12 @@ namespace Lemonade
         public double PurchasedIce;
         public double PurchasedCups;
         public double PurchasedSugar;
-        public double LemonSale;
-        public double IceSale;
-        public double CupSale;
-        public double SugarSale;
         public double LemonPrice = .10;
         public double IcePrice = .05;
         public double CupsPrice = .10;
         public double SugarPrice = .10;
         public string IngredientSelection;
+        public double Bill;
 
 
         public Store()
@@ -31,91 +28,120 @@ namespace Lemonade
 
         public void PurchaseIngredients(Player player)
         {
+    
             Console.WriteLine("\nType the ingredient you would like to purchase. 'lemon' 'ice' 'cup' 'sugar' or type 'return' to access the main menu\n");
             IngredientSelection = Console.ReadLine();
             switch (IngredientSelection)
             {
                 case "lemon":
-                    {
-                        Console.WriteLine($"\nLemons cost {LemonPrice} each, how many would you like? You currently have {player.Inventory.LemonList.Count} lemons and your wallet currently has ${player.Wallet}\n");
-                        PurchasedLemons = double.Parse(Console.ReadLine());
-                        LemonSale = (PurchasedLemons * LemonPrice);
-                        if (player.Wallet < LemonSale)
+                    {try
                         {
-                            Console.WriteLine("Not enough cash bozo\n");
-                            PurchaseIngredients(player);
+                            Console.WriteLine($"\nLemons cost {LemonPrice} each, how many would you like? You currently have {player.Inventory.LemonList.Count} lemons and your wallet currently has ${player.Wallet}\n");
+                            PurchasedLemons = double.Parse(Console.ReadLine());
+                            Bill = (PurchasedLemons * LemonPrice);
+                            if (player.Wallet < Bill)
+                            {
+                                Console.WriteLine("Not enough cash bozo\n");
+                                PurchaseIngredients(player);
+                            }
+                            else
+                            {
+                                SpendMoney(player);
+                                AddLemonInventory(player);
+                                Console.WriteLine($"{PurchasedLemons} lemons have been added to your inventory\n");
+                                PurchaseIngredients(player);
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            player.Wallet = player.Wallet - LemonSale;
-                            AddLemonInventory(player);
-                            Console.WriteLine($"{PurchasedLemons} lemons have been added to your inventory\n");
+                            Console.WriteLine("Invalid input");
                             PurchaseIngredients(player);
                         }
                         
                         break;
                     }
                 case "ice":
-                    {
-                        Console.WriteLine($"\nIce costs {IcePrice} per ice cube, how much would you like? You currently have {player.Inventory.IceList.Count} ice and your wallet currently has ${player.Wallet}\n");
-                        PurchasedIce = double.Parse(Console.ReadLine());
-                        IceSale = (PurchasedIce * IcePrice);
-                        if (player.Wallet < IceSale)
+                    {try
                         {
-                            Console.WriteLine("Not enough cash bozo\n");
-                            PurchaseIngredients(player);
-                        }
-                        else
-                        {
-                            player.Wallet = player.Wallet - IceSale;
-                            AddIceInventory(player);
-                            Console.WriteLine($"{PurchasedIce} ice cubes have been added to your inventory\n");
-                            PurchaseIngredients(player);
+                            Console.WriteLine($"\nIce costs {IcePrice} per ice cube, how much would you like? You currently have {player.Inventory.IceList.Count} ice and your wallet currently has ${player.Wallet}\n");
+                            PurchasedIce = double.Parse(Console.ReadLine());
+                            Bill = (PurchasedIce * IcePrice);
+                            if (player.Wallet < Bill)
+                            {
+                                Console.WriteLine("Not enough cash bozo\n");
+                                PurchaseIngredients(player);
+                            }
+                            else
+                            {
+                                SpendMoney(player);
+                                AddIceInventory(player);
+                                Console.WriteLine($"{PurchasedIce} ice cubes have been added to your inventory\n");
+                                PurchaseIngredients(player);
 
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Invalid input");
+                            PurchaseIngredients(player);
                         }
 
                         break;
                     }
                 case "cup":
-                    {
-                        Console.WriteLine($"\nCups cost {CupsPrice}, how many would you like? You currently have {player.Inventory.CupList.Count} cups and your wallet currently has ${player.Wallet}\n");
-                        PurchasedCups = double.Parse(Console.ReadLine());
-                        CupSale = (PurchasedCups * CupsPrice);
-                        if (player.Wallet < CupSale)
+                    {try
                         {
-                            Console.WriteLine("Not enough cash bozo\n");
+                            Console.WriteLine($"\nCups cost {CupsPrice}, how many would you like? You currently have {player.Inventory.CupList.Count} cups and your wallet currently has ${player.Wallet}\n");
+                            PurchasedCups = double.Parse(Console.ReadLine());
+                            Bill = (PurchasedCups * CupsPrice);
+                            if (player.Wallet < Bill)
+                            {
+                                Console.WriteLine("Not enough cash bozo\n");
+                                PurchaseIngredients(player);
+                            }
+                            else
+                            {
+                                SpendMoney(player);
+                                AddCupInventory(player);
+                                Console.WriteLine($"{PurchasedCups} cups have been added to your inventory\n");
+                                PurchaseIngredients(player);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Invalid input");
                             PurchaseIngredients(player);
                         }
-                        else
-                        {
-                            player.Wallet = player.Wallet - CupSale;
-                            AddCupInventory(player);
-                            Console.WriteLine($"{PurchasedCups} cups have been added to your inventory\n");
-                            PurchaseIngredients(player);
 
-
-                        }
                         break;
                     }
                 case "sugar":
                     {
-                        Console.WriteLine($"\nSugar costs {SugarPrice} per sugar packet, how many would you like? You currently have {player.Inventory.SugarList.Count} sugar packets and your wallet currently has ${player.Wallet}\n");
-                        PurchasedSugar = double.Parse(Console.ReadLine());
-                        SugarSale = (PurchasedSugar * SugarPrice);
-                        if (player.Wallet < SugarSale)
+                        try
                         {
-                            Console.WriteLine("Not enough cash bozo\n");
+                            Console.WriteLine($"\nSugar costs {SugarPrice} per sugar packet, how many would you like? You currently have {player.Inventory.SugarList.Count} sugar packets and your wallet currently has ${player.Wallet}\n");
+                            PurchasedSugar = double.Parse(Console.ReadLine());
+                            Bill = (PurchasedSugar * SugarPrice);
+                            if (player.Wallet < Bill)
+                            {
+                                Console.WriteLine("Not enough cash bozo\n");
+                                PurchaseIngredients(player);
+                            }
+                            else
+                            {
+                                SpendMoney(player);
+                                AddSugarInventory(player);
+                                Console.WriteLine($"{PurchasedSugar} sugar packets have been added to your inventory\n");
+                                PurchaseIngredients(player);
+
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Invalid input");
                             PurchaseIngredients(player);
                         }
-                        else
-                        {
-                            player.Wallet = player.Wallet - SugarSale;
-                            AddSugarInventory(player);
-                            Console.WriteLine($"{PurchasedSugar} sugar packets have been added to your inventory\n");
-                            PurchaseIngredients(player);
 
-
-                        }
                         break;
                     }
                 case "return":
@@ -167,6 +193,11 @@ namespace Lemonade
 
             }
 
+        }
+
+        public void SpendMoney(Player player)
+        {
+            player.Wallet = player.Wallet - Bill;
         }
     }
 }

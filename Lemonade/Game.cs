@@ -15,7 +15,8 @@ namespace Lemonade
         public Money Wallet = new Money();
         public string MenuOptions;
         public int DayCounter = 1;
-
+        public Money money;
+        //Five tests for at least two. Five total tests.
 
         public Game()
         {
@@ -23,6 +24,7 @@ namespace Lemonade
             store = new Store();
             weather = new Weather();
             NewDay = new Day(weather);
+            money = new Money();
         }
         
       
@@ -38,7 +40,7 @@ namespace Lemonade
 
         public void MainMenu()
         {
-            Console.WriteLine($"Welcome to Day {DayCounter}. Main Menu: \nType 'inventory' to check your supplies. \nType 'store' to purchase supplies. \nType Once you have your supplies, type 'start' to prepare a lemonade mix and start selling. \nTomorrow's forecast is: {weather.Condition} {weather.Temperature} degrees Fahrenheit. \nYour wallet contains ${player.Wallet}");
+            Console.WriteLine($"\nWelcome to Day {DayCounter}. Main Menu: \nType 'inventory' to check your supplies. \nType 'store' to purchase supplies. \nType Once you have your supplies, type 'start' to prepare a lemonade mix and start selling. \nTomorrow's forecast is: {weather.Condition} {weather.Temperature} degrees Fahrenheit. \nYour wallet contains ${player.Wallet}. You've made ${player.WeekEarnings} so far this week.");
             MenuOptions = Console.ReadLine().ToLower();
             switch (MenuOptions)
             {
@@ -52,6 +54,11 @@ namespace Lemonade
                     MainMenu();
                     break;
                 case "start":
+                    if (player.Inventory.LemonList.Count == 0 || player.Inventory.SugarList.Count == 0 || player.Inventory.CupList.Count == 0)
+                    {
+                        Console.WriteLine("\nYou need at least one pitcher's worth of supplies to start the game\n");
+                        MainMenu();
+                    }
                     player.Inventory.LemonRecipe();
                     NewDay.SelectPrice();
                     NewDay.ForecastAccuracy();
@@ -60,7 +67,7 @@ namespace Lemonade
                     DayCounter = DayCounter + 1;
                     if (DayCounter == 8)
                     {
-                        Console.WriteLine($"\nGame over {player.PlayerName}. Your wallet started at $50 and ended at  ${player.Wallet}.\n");
+                        Console.WriteLine($"\nGame over {player.PlayerName}. You made ${player.WeekEarnings} this week.\n");
                         Console.ReadLine();
                     }
                     NewDay = new Day(weather);

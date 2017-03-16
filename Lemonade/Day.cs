@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Lemonade
 {
 
-    class Day
+    public class Day
     {
         public int SetPrice;
         Weather weather;
@@ -15,13 +15,14 @@ namespace Lemonade
         int maxNumberOfCustomers = 50;
         Random rnd = new Random();
         public int CupsSold;
+        public Money money;
 
 
         public Day(Weather forecast)
         {
             customers = new List<Customer>();
             weather = forecast;
-            
+            money = new Money();
         }
 
         public void ForecastAccuracy()
@@ -39,8 +40,16 @@ namespace Lemonade
 
         public void SelectPrice()
         {
-            Console.WriteLine("Set the price for one cup of lemonade. Customers tend to pay between $1 and $5 for a cup of lemonade, or potentially more if the temperature is hot enough.");
-            SetPrice = int.Parse(Console.ReadLine());
+            try
+            {
+                Console.WriteLine("Set the price for one cup of lemonade. Customers tend to pay between $1 and $5 for a cup of lemonade, or potentially more if the temperature is hot enough.");
+                SetPrice = int.Parse(Console.ReadLine());
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("Invalid input");
+                SelectPrice();
+            }
         }
 
         public void GenerateCustomers()
@@ -67,6 +76,11 @@ namespace Lemonade
                         break;
                         }
                     EagernessToBuy(customers[i], player);
+                    bool result2 = player.Inventory.Pitcher.CheckCups(player);
+                    if (result2 == false)
+                    {
+                        break;
+                    }
                 }
           }
             player.Wallet = player.Wallet + (CupsSold * SetPrice);
@@ -91,21 +105,16 @@ namespace Lemonade
         {
             Random rand = new Random();
             int chance = rand.Next(1, 101);
-            if (player.Inventory.CupList.Count == 0)
-            {
-                Console.WriteLine("You ran out of cups. You will have to close down your lemonade stand for the rest of the day");
-                DayResults(player);
-            }
             if (weather.Temperature > 85)
             {
                 customer.MaxPrice = customer.MaxPrice * 2;
             }
             if (customer.PreferredLemons == player.Inventory.LemonsUsed && customer.PreferredSugar == player.Inventory.SugarUsed && customer.PreferredIce == player.Inventory.IceUsed)
             {
-                if (player.Inventory.CupList.Count == 0)
+                bool result2 = player.Inventory.Pitcher.CheckCups(player);
+                if (result2 == false)
                 {
-                    Console.WriteLine("You ran out of cups. You will have to close down your lemonade stand for the rest of the day");
-                    DayResults(player);
+                    return;
                 }
                 player.Inventory.Pitcher.PourGlass(player);
                 CupsSold = CupsSold + 1;
@@ -115,10 +124,10 @@ namespace Lemonade
             {
                 if (chance > 33)
                 {
-                    if (player.Inventory.CupList.Count == 0)
+                    bool result2 = player.Inventory.Pitcher.CheckCups(player);
+                    if (result2 == false)
                     {
-                        Console.WriteLine("You ran out of cups. You will have to close down your lemonade stand for the rest of the day");
-                        DayResults(player);
+                        return;
                     }
                     player.Inventory.Pitcher.PourGlass(player);
                     CupsSold = CupsSold + 1;
@@ -128,10 +137,10 @@ namespace Lemonade
             {
                 if (chance > 33)
                 {
-                    if (player.Inventory.CupList.Count == 0)
+                    bool result2 = player.Inventory.Pitcher.CheckCups(player);
+                    if (result2 == false)
                     {
-                        Console.WriteLine("You ran out of cups. You will have to close down your lemonade stand for the rest of the day");
-                        DayResults(player);
+                        return;
                     }
                     player.Inventory.Pitcher.PourGlass(player);
                     CupsSold = CupsSold + 1;
@@ -141,10 +150,10 @@ namespace Lemonade
             {
                 if (chance > 33)
                 {
-                    if (player.Inventory.CupList.Count == 0)
+                    bool result2 = player.Inventory.Pitcher.CheckCups(player);
+                    if (result2 == false)
                     {
-                        Console.WriteLine("You ran out of cups. You will have to close down your lemonade stand for the rest of the day");
-                        DayResults(player);
+                        return;
                     }
                     player.Inventory.Pitcher.PourGlass(player);
                     CupsSold = CupsSold + 1;
@@ -154,10 +163,10 @@ namespace Lemonade
             {
                 if (chance > 66)
                 {
-                    if (player.Inventory.CupList.Count == 0)
+                    bool result2 = player.Inventory.Pitcher.CheckCups(player);
+                    if (result2 == false)
                     {
-                        Console.WriteLine("You ran out of cups. You will have to close down your lemonade stand for the rest of the day");
-                        DayResults(player);
+                        return;
                     }
                     player.Inventory.Pitcher.PourGlass(player);
                     CupsSold = CupsSold + 1;
@@ -166,7 +175,14 @@ namespace Lemonade
         }
         public void DayResults(Player player)
         {
-            Console.WriteLine($"\nDay finished. You sold {CupsSold} cups of lemonade today. \nYour wallet started at $50 and now stands at ${player.Wallet}\n");
+            if (player.Inventory.CupList.Count == 0)
+            {
+                Console.WriteLine("\nYou ran out of cups and had to close down for the day\n");
+            }
+            money.DayEndSales = (CupsSold * SetPrice);
+            player.WeekEarnings = player.WeekEarnings + (CupsSold * SetPrice);
+
+            Console.WriteLine($"\nDay finished. You sold {CupsSold} cups of lemonade. \n You made ${money.DayEndSales} today. Your wallet now stands at ${player.Wallet}\n");
             
         }
 
